@@ -16,7 +16,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: 1.91.0
-          targets: wasm32-unknown-unknown
+          targets: wasm32v1-none,wasm32-unknown-unknown
 
       - name: Cache Cargo
         uses: actions/cache@v4
