@@ -112,6 +112,10 @@ members = [
     "ladder-seasons",
     "voucher-minter",
     "map-voting",
+    "round-finalizer",
+    "vault-routing",
+    "bonus-vault",
+    "combo-rewards",
 ]
 
 exclude = [
