@@ -76,6 +76,9 @@ describe('ProfileSettings page', () => {
       expect(
         screen.getByRole('region', { name: 'Profile Settings' }),
       ).toBeInTheDocument();
+      expect(
+        screen.getByTestId('profile-settings-actions-footer'),
+      ).toBeInTheDocument();
     });
   });
 

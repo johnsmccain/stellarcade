@@ -17,6 +17,7 @@ import { SegmentedControl } from "../components/v1/SegmentedControl";
 import { WalletSessionActivityRail } from "../components/v1/WalletSessionActivityRail";
 import { ActionToolbar, type ToolbarAction } from "../components/v1/ActionToolbar";
 import { InlineStatDelta } from "../components/v1/InlineStatDelta";
+import { QueueHealthWidget } from "../components/v1/QueueHealthWidget";
 import { useWalletStatus } from "../hooks/v1/useWalletStatus";
 import { ApiClient } from "../services/typed-api-sdk";
 import GlobalStateStore, {
@@ -579,6 +580,22 @@ export const GameLobby: React.FC = () => {
   );
 
   const showMobileActionFooter = isMobileViewport && mobileToolbarActions.length > 0;
+  const queueSummaryMetrics = useMemo(
+    () => ({
+      playersInQueue: activeGames.length * 4,
+      averageWaitTime: activeGames.length > 0 ? 95 : 0,
+      estimatedWaitTime: activeGames.length > 0 ? 70 : 0,
+      activeMatches: activeGames.length,
+      queueHealth:
+        activeGames.length === 0
+          ? ("offline" as const)
+          : activeGames.length > 5
+            ? ("healthy" as const)
+            : ("degraded" as const),
+      lastUpdated: new Date(lastGamesSyncAt ?? Date.now()).toISOString(),
+    }),
+    [activeGames.length, lastGamesSyncAt],
+  );
 
   const activityItems = useMemo(() => {
     const items: Array<{
@@ -760,6 +777,15 @@ export const GameLobby: React.FC = () => {
           </div>
 
           <QuickActionSurface actions={quickActions} />
+          <QueueHealthWidget
+            queueName="Queue participation summary"
+            metrics={queueSummaryMetrics}
+            size="compact"
+            showDetails={false}
+            refreshInterval={0}
+            onRefresh={handleRefreshLobby}
+            testId="lobby-queue-summary"
+          />
 
           {pendingResumeContext ? (
             <ResumeTaskBanner

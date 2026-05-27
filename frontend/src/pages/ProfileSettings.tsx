@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ApiClient } from '@/services/typed-api-sdk';
 import { SkeletonPreset } from '@/components/v1/LoadingSkeletonSet';
 import { AccountSwitcher } from '@/components/v1/AccountSwitcher';
+import { StickyActionsFooter } from '@/components/v1/StickyActionsFooter';
 import GlobalStateStore from '@/services/global-state-store';
 import { useWalletStatus } from '@/hooks/v1/useWalletStatus';
 import type { RecentAccount } from '@/components/v1/AccountSwitcher.types';
@@ -203,9 +204,11 @@ const ProfileSettings: React.FC = () => {
           />
         </div>
 
-        <button type="submit" disabled={saving} data-testid="profile-settings-save">
-          {saving ? 'Saving...' : 'Save Profile'}
-        </button>
+        <StickyActionsFooter testId="profile-settings-actions-footer">
+          <button type="submit" disabled={saving} data-testid="profile-settings-save">
+            {saving ? 'Saving...' : 'Save Profile'}
+          </button>
+        </StickyActionsFooter>
       </form>
 
       <div className="wallet-metadata" data-testid="profile-settings-wallet-meta">

@@ -159,6 +159,20 @@ describe("GameLobby", () => {
     );
   });
 
+  it("renders queue participation summary widget in live lobby flow", async () => {
+    (ApiClient as any).prototype.getGames.mockResolvedValue({
+      success: true,
+      data: [{ id: "g1", name: "Game One", status: "active", wager: 25 }],
+    });
+
+    render(<GameLobby />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("lobby-queue-summary")).toBeInTheDocument();
+      expect(screen.getByText(/Queue participation summary/i)).toBeInTheDocument();
+    });
+  });
+
   it("prompts the user to return to the last context after reconnecting", async () => {
     sessionStorage.setItem("stc_dashboard_last_context_v1", "activity-rail");
     walletState.status = "RECONNECTING";

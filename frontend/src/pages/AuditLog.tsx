@@ -151,15 +151,15 @@ const AuditLog: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+    <main style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }} aria-labelledby="audit-log-heading">
       <header style={{ marginBottom: '2rem' }}>
-        <h1>Audit Log</h1>
+        <h1 id="audit-log-heading">Audit Log</h1>
         <p style={{ color: '#a8b5c8' }}>
           Monitor system activities, user actions, and security events
         </p>
       </header>
 
-      <div style={{ 
+      <section aria-labelledby="audit-recent-activity-heading" style={{ 
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'space-between', 
@@ -168,7 +168,7 @@ const AuditLog: React.FC = () => {
         gap: '1rem'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <h2 style={{ margin: 0 }}>Recent Activity</h2>
+          <h2 id="audit-recent-activity-heading" style={{ margin: 0 }}>Recent Activity</h2>
           <select 
             value={selectedVariant}
             onChange={(e) => setSelectedVariant(e.target.value as any)}
@@ -194,9 +194,9 @@ const AuditLog: React.FC = () => {
           size="compact"
           testId="audit-log-range-switcher"
         />
-      </div>
+      </section>
 
-      <div style={{ 
+      <section aria-label="Audit activity list" style={{ 
         display: 'grid', 
         gap: '1rem',
         gridTemplateColumns: selectedVariant === 'minimal' 
@@ -213,7 +213,7 @@ const AuditLog: React.FC = () => {
             testId={`audit-card-${audit.id}`}
           />
         ))}
-      </div>
+      </section>
 
       {auditData.length === 0 && (
         <div style={{ 
@@ -228,7 +228,7 @@ const AuditLog: React.FC = () => {
         </div>
       )}
 
-      <div style={{ 
+      <section aria-label="Audit card variant guidance" style={{ 
         marginTop: '3rem',
         padding: '1.5rem',
         border: '1px solid #333',
@@ -256,8 +256,8 @@ const AuditLog: React.FC = () => {
           loading states, and accessibility requirements. It's designed to work well 
           in narrow detail layouts while maintaining readability and functionality.
         </p>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 
